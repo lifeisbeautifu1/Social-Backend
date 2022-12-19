@@ -33,10 +33,10 @@ const app = express();
 
 // app.use('/images', express.static(path.join(__dirname + '/public/images')));
 
-const corsOptions = {
-  origin: true,
-  credentials: true,
-};
+// const corsOptions = {
+//   origin: true,
+//   credentials: true,
+// };
 
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -49,7 +49,7 @@ app.use(function (req, res, next) {
 });
 
 app.enable('trust proxy');
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(morgan('dev'));
 app.use(cookieParser());
@@ -111,7 +111,7 @@ const start = async () => {
     );
     const io = new Server(server, {
       cors: {
-        origin: '*',
+        origin: 'https://project-social.netlify.app/',
       },
     });
 
