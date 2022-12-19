@@ -39,10 +39,10 @@ const app = (0, express_1.default)();
 //   path.dirname(decodeURI(new URL(import.meta.url).pathname))
 // );
 // app.use('/images', express.static(path.join(__dirname + '/public/images')));
-// const corsOptions = {
-//   origin: true,
-//   credentials: true,
-// };
+const corsOptions = {
+    origin: true,
+    credentials: true,
+};
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET, PUT, PATCH, POST, DELETE');
@@ -50,14 +50,16 @@ app.use(function (req, res, next) {
     next();
 });
 app.enable('trust proxy');
-// app.use(cors(corsOptions));
+app.use((0, cors_1.default)(corsOptions));
 app.use((0, cookie_parser_1.default)());
 app.use((0, morgan_1.default)('dev'));
 app.use((0, cookie_parser_1.default)());
-app.use((0, cors_1.default)({
-    origin: 'https://project-social.netlify.app',
-    credentials: true,
-}));
+// app.use(
+//   cors({
+//     origin: 'https://project-social.netlify.app',
+//     credentials: true,
+//   })
+// );
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 // File uploading part
@@ -96,7 +98,7 @@ const start = () => __awaiter(void 0, void 0, void 0, function* () {
         const server = app.listen(PORT, () => console.log(`Server runnnig on port ${PORT}`.green.bold));
         const io = new socket_io_1.Server(server, {
             cors: {
-                origin: 'https://project-social.netlify.app/',
+                origin: '*',
             },
         });
         io.on('connection', (socket) => {
