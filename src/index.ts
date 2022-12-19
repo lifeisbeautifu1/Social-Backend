@@ -111,7 +111,7 @@ const start = async () => {
     );
     const io = new Server(server, {
       cors: {
-        origin: 'https://project-social.netlify.app/',
+        origin: '*',
       },
     });
 
